@@ -2,6 +2,7 @@ package com.skilldistillery.yahtzee.entities;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,8 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int score;
+	@Column(name="grand_total")
+	private int grandTotal;
 
 	public Game() {
 		super();
@@ -28,12 +30,12 @@ public class Game {
 		this.id = id;
 	}
 
-	public int getScore() {
-		return score;
+	public int getgrandTotal() {
+		return grandTotal;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setgrandTotal(int grandTotal) {
+		this.grandTotal = grandTotal;
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", score=" + score + "]";
+		return "Game [id=" + id + ", grandTotal=" + grandTotal + "]";
 	}
 	
 	

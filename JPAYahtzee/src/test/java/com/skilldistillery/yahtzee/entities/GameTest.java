@@ -44,7 +44,7 @@ class GameTest {
 	void test_Game_entity() {
 		assertNotNull(game);
 		assertEquals(1, game.getId());
-		assertEquals(180, game.getScore());
+		assertEquals(180, game.getgrandTotal());
 	}
 
 }

@@ -1,1 +1,3 @@
 rootProject.name = 'YahtzeeHallOfFame'
+
+includeFlat 'JPAYahtzee'

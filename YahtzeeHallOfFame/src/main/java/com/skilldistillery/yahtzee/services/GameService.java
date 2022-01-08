@@ -12,7 +12,7 @@ public interface GameService {
 	Game getGameById(int gameId);
 	List<Game> findGameByPlayer(int playerId);
 	Game addGame(Game game);
-	
-	void deleteGame(int gameId);
+	Game updateGame(Game game, int gameId);
+	boolean deleteGame(int gameId);
 
 }

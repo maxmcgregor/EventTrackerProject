@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.yahtzee.entities.Game;
-import com.skilldistillery.yahtzee.entities.Player;
 import com.skilldistillery.yahtzee.repositories.GameRepository;
 import com.skilldistillery.yahtzee.repositories.PlayerRepository;
 
@@ -51,9 +50,23 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void deleteGame(int gameId) {
-		gameRepo.deleteById(gameId);
-		;
+	public Game updateGame(Game game, int gameId) {
+		game.setId(gameId);
+		if(gameRepo.existsById(gameId)) {
+			return gameRepo.save(game);
+		}
+		return null;
+	}
+
+	public boolean deleteGame(int gameId) {
+		boolean deleted = false;
+		Optional<Game> gameOp = gameRepo.findById(gameId);
+		if (gameOp.isPresent()) {
+			Game game = gameOp.get();
+			gameRepo.delete(game);
+			deleted = true;
+		}
+		return deleted;
 	}
 
 }

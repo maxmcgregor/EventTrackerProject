@@ -6,9 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +55,24 @@ public class GameController {
 			game = null;
 		}
 		return game;
+	}
+	
+	@PutMapping("games/{gameId}")
+	public Game updateGame(@RequestBody Game game, @PathVariable int gameId, HttpServletResponse res) {
+		Game newGame = gameSvc.updateGame(game, gameId);
+		if (newGame != null) {
+			res.setStatus(201);
+		}
+		return newGame;
+	}
+	
+	@DeleteMapping("games/{gameId}")
+	public void deleteGame(@PathVariable Integer gameId, HttpServletResponse res) {
+		if (gameSvc.deleteGame(gameId)) {
+			res.setStatus(HttpStatus.NO_CONTENT.value());
+		} else {
+			res.setStatus(404);
+		}
 	}
 	
 	

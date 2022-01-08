@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class GameTest {
+class PlayerTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Game game;
+	private Player player;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,27 +31,26 @@ class GameTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		game = em.find(Game.class, 1);
+		player = em.find(Player.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		game = null;
+		player = null;
 	}
 
 	@Test
-	void test_Game_entity() {
-		assertNotNull(game);
-		assertEquals(1, game.getId());
-		assertEquals(180, game.getGrandTotal());
+	void test_Player_entity_mapping() {
+		assertNotNull(player);
+		assertEquals("Max", player.getName());
 	}
 	
 	@Test
-	void test_Game_Player_ManyToOne_mapping() {
-		assertNotNull(game);
-		assertNotNull(game.getPlayer());
-		assertEquals(1, game.getPlayer().getId());
+	void test_Player_Game_OneToMany_mapping() {
+		assertNotNull(player);
+		assertNotNull(player.getGames());
+		assertTrue(player.getGames().size() > 0);
 	}
 
 }

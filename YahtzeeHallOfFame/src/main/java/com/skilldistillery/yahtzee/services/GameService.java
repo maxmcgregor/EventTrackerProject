@@ -9,10 +9,15 @@ import com.skilldistillery.yahtzee.entities.Game;
 public interface GameService {
 	
 	List<Game> getAllGames();
+	
 	Game getGameById(int gameId);
-	List<Game> findGameByPlayer(int playerId);
+	
 	Game addGame(Game game);
+	
 	Game updateGame(Game game, int gameId);
+	
 	boolean deleteGame(int gameId);
+	
+	List<Game> findGameByPlayer(int playerId);
 
 }

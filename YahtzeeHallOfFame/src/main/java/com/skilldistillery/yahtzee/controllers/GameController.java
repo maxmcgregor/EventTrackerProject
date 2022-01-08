@@ -59,11 +59,11 @@ public class GameController {
 	
 	@PutMapping("games/{gameId}")
 	public Game updateGame(@RequestBody Game game, @PathVariable int gameId, HttpServletResponse res) {
-		Game newGame = gameSvc.updateGame(game, gameId);
-		if (newGame != null) {
+		Game updatedGame = gameSvc.updateGame(game, gameId);
+		if (updatedGame != null) {
 			res.setStatus(201);
 		}
-		return newGame;
+		return updatedGame;
 	}
 	
 	@DeleteMapping("games/{gameId}")

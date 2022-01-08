@@ -8,4 +8,5 @@ import com.skilldistillery.yahtzee.entities.Game;
 
 public interface GameRepository extends JpaRepository<Game, Integer> {
 	List<Game> findByPlayer_Id(int playerId);
+	List<Game> findByYahtzeeIs(int yahtzee);
 }

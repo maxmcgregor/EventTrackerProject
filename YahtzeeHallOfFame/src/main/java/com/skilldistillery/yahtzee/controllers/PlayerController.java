@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.yahtzee.entities.Player;
@@ -39,6 +40,15 @@ public class PlayerController {
 		}
 		return resultPlayer;
 	}
+	
+//	@GetMapping("players")
+//	public Player getPlayerByName(@RequestParam(value="name") String playerName, HttpServletResponse res) {
+//		Player resultPlayer = playerSvc.findByName(playerName);
+//		if (resultPlayer == null) {
+//			res.setStatus(404);
+//		}
+//		return resultPlayer;
+//	}
 	
 	@PostMapping("players")
 	public Player addPlayer(@RequestBody Player player, HttpServletResponse res, HttpServletRequest req) {

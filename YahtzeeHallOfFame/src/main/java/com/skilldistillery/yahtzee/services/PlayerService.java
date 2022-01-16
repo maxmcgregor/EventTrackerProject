@@ -16,6 +16,6 @@ public interface PlayerService {
 	
 	boolean deletePlayer(int playerId);
 	
-	List<Player> findByName(String name);
+	Player findByName(String name);
 	
 }

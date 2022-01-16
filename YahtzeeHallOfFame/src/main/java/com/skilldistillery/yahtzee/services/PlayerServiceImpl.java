@@ -21,7 +21,7 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	@Override
-	public List<Player> findByName(String name) {
+	public Player findByName(String name) {
 		return playerRepo.findByName(name);
 	}
 

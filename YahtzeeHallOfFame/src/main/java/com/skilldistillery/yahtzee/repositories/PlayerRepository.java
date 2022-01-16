@@ -8,6 +8,6 @@ import com.skilldistillery.yahtzee.entities.Player;
 
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
 	
-	List<Player> findByName(String name);
+	Player findByName(String name);
 	
 }

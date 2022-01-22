@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.skilldistillery.yahtzee.services.GameService;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin({ "*", "http://localhost:4202" })
 public class GameController {
 	
 	@Autowired
@@ -35,7 +37,7 @@ public class GameController {
 	public Game getGameById(@PathVariable Integer gameId, HttpServletResponse res) {
 		Game resultGame = gameSvc.getGameById(gameId);
 		if (resultGame == null) {
-			res.setStatus(404);
+			res.setStatus(404);	
 		}
 		return resultGame;
 	}

@@ -1,0 +1,120 @@
+<div *ngIf="!addingNewGame && !viewingGame">
+  <h4>All Games </h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Total Score</th>
+        <th>Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let g of games">
+        <!-- <td>{{retrievePlayer(g)}}</td> -->
+        <td>Player name (will figure out later)</td>
+        <td>{{g.grandTotal}}</td>
+        <td>{{checkWinner(g)}}</td>
+        <td><button (click)="selected=g; viewingGame=true">View Details</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="addingNewGame=true">Add New Game</button>
+
+</div>
+<div *ngIf="addingNewGame">
+<form>
+  Player: <select name="player" id="players">
+    <option *ngFor="let p of players" value={{p}} name="player" [(ngModel)]="newGame.player">{{p.name}}</option>
+  </select>
+  <br>Total Score<input type="number" placeholder="Total Score" name="totalScore" [(ngModel)]="newGame.grandTotal">
+  <br><input type="radio" id="winner" name="winOrLose" value=true [(ngModel)]="newGame.winner"> <label for="winner">Winner</label>
+      <input type="radio" id="loser" name="winOrLose" value=false [(ngModel)]="newGame.winner"> <label for="loser">Loser</label>
+  <br>Aces<input type="number" name="aces" placeholder="Aces" [(ngModel)]="newGame.aces">
+  <br>Twos<input type="number" name="twos" placeholder="Twos" [(ngModel)]="newGame.twos">
+  <br>Threes<input type="number" name="threes" placeholder="Threes" [(ngModel)]="newGame.threes">
+  <br>Fours<input type="number" name="fours" placeholder="Fours" [(ngModel)]="newGame.fours">
+  <br>Fives<input type="number" name="fives" placeholder="Fives" [(ngModel)]="newGame.fives">
+  <br>Sixes<input type="number" name="sixes" placeholder="Sixes" [(ngModel)]="newGame.sixes">
+  <br>Bonus<input type="number" name="bonus" placeholder="Bonus" [(ngModel)]="newGame.bonus">
+  <br>Three of a Kind<input type="number" name="threeOfAKind" placeholder="Three of a Kind" [(ngModel)]="newGame.threeOfAKind">
+  <br>Four of a Kind<input type="number" name="fourOfAKind" placeholder="Four of a Kind" [(ngModel)]="newGame.fourOfAKind">
+  <br>Full House<input type="number" name="fullHouse" placeholder="Full House" [(ngModel)]="newGame.fullHouse">
+  <br>Small Straight<input type="number" name="smallStraight" placeholder="Small Straight" [(ngModel)]="newGame.smallStraight">
+  <br>Large Straight<input type="number" name="largeStraight" placeholder="Large Straight" [(ngModel)]="newGame.largeStraight">
+  <br>Yahtzee<input type="number" name="yahtzee" placeholder="Yahtzee" [(ngModel)]="newGame.yahtzee">
+  <br>Chance<input type="number" name="chance" placeholder="Chance" [(ngModel)]="newGame.chance">
+  <br>Yahtzee Bonus<input type="number" name="yahtzeeBonus" placeholder="Yahtzee Bonus" [(ngModel)]="newGame.yahtzeeBonus">
+  <br><input type="submit" value="Add Game" name="newGameSubmitButton" (click)="addingNewGame=false; addGame(newGame)">
+
+</form>
+</div>
+
+<div *ngIf="selected && !editGame">
+  <!-- Player: {{retrievePlayer(selected)}}<br> -->
+  Player: (will figure out later)<br>
+  Total Score: {{selected.grandTotal}}<br>
+  Outcome: {{checkWinner(selected)}}<br>
+  <table>
+    <thead>
+      <tr>
+        <th>Aces</th>
+        <th>Twos</th>
+        <th>Threes</th>
+        <th>Fours</th>
+        <th>Fives</th>
+        <th>Sixes</th>
+        <th>Bonus</th>
+        <th>Three of a Kind</th>
+        <th>Four of a Kind</th>
+        <th>Full House</th>
+        <th>Small Straight</th>
+        <th>Large Straight</th>
+        <th>Yahtzee</th>
+        <th>Chance</th>
+        <th>Yahtzee Bonus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>{{selected.aces}}</th>
+        <th>{{selected.twos}}</th>
+        <th>{{selected.threes}}</th>
+        <th>{{selected.fours}}</th>
+        <th>{{selected.fives}}</th>
+        <th>{{selected.sixes}}</th>
+        <th>{{selected.bonus}}</th>
+        <th>{{selected.threeOfAKind}}</th>
+        <th>{{selected.fourOfAKind}}</th>
+        <th>{{selected.fullHouse}}</th>
+        <th>{{selected.smallStraight}}</th>
+        <th>{{selected.largeStraight}}</th>
+        <th>{{selected.yahtzee}}</th>
+        <th>{{selected.chance}}</th>
+        <th>{{selected.yahtzeeBonus}}</th>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="displayAllGame(); viewingGame=false">Back</button>
+  <button (click)="setEditGame()">Edit</button>
+</div>
+
+<form *ngIf="editGame">
+  Aces <input type="number" name="aces" [(ngModel)]="editGame.aces"><br>
+  Twos <input type="number" name="twos" [(ngModel)]="editGame.twos"><br>
+  Threes<input type="number" name="threes" [(ngModel)]="editGame.threes"><br>
+  Fours<input type="number" name="fours" [(ngModel)]="editGame.fours"><br>
+  Fives<input type="number" name="fives" [(ngModel)]="editGame.fives"><br>
+  Sixes<input type="number" name="sixes" [(ngModel)]="editGame.sixes"><br>
+  Bonus <input type="number" name="bonus" [(ngModel)]="editGame.bonus"><br>
+  Three of a Kind<input type="number" name="threeOfAKind" [(ngModel)]="editGame.threeOfAKind"><br>
+  Four of a Kind<input type="number" name="fourOfAKind" [(ngModel)]="editGame.fourOfAKind"><br>
+  Full House<input type="number" name="fullHouse" [(ngModel)]="editGame.fullHouse"><br>
+  Small Straight <input type="number" name="smallStraight" [(ngModel)]="editGame.smallStraight"><br>
+  Large Straight<input type="number" name="largeStraight`" [(ngModel)]="editGame.largeStraight"><br>
+  Yahtzee<input type="number" name="yahtzee" [(ngModel)]="editGame.yahtzee"><br>
+  Chance <input type="number" name="chance" [(ngModel)]="editGame.chance"><br>
+  Yahtzee Bonus<input type="number" name="yahtzeeBonus" [(ngModel)]="editGame.yahtzeeBonus"><br>
+  <button (click)="editGame=null")>Cancel</button>
+  <button (click)="updateGame(editGame)">Update Game</button>
+</form>

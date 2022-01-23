@@ -21,13 +21,11 @@ USE `yahtzeedb` ;
 DROP TABLE IF EXISTS `player` ;
 
 CREATE TABLE IF NOT EXISTS `player` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -36,25 +34,25 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `game` ;
 
 CREATE TABLE IF NOT EXISTS `game` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `grand_total` INT(11) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `grand_total` INT NOT NULL,
   `winner` TINYINT(1) NOT NULL,
-  `aces` INT(11) NOT NULL,
-  `twos` INT(11) NOT NULL,
-  `threes` INT(11) NOT NULL,
-  `fours` INT(11) NOT NULL,
-  `fives` INT(11) NOT NULL,
-  `sixes` INT(11) NOT NULL,
-  `bonus` INT(11) NOT NULL,
-  `3_of_a_kind` INT(11) NOT NULL,
-  `4_of_a_kind` INT(11) NOT NULL,
-  `full_house` INT(11) NOT NULL,
-  `sm_straight` INT(11) NOT NULL,
-  `lg_straight` INT(11) NOT NULL,
-  `yahtzee` INT(11) NOT NULL,
-  `chance` INT(11) NOT NULL,
-  `yahtzee_bonus` INT(11) NOT NULL,
-  `player_id` INT(11) NOT NULL,
+  `aces` INT NOT NULL,
+  `twos` INT NOT NULL,
+  `threes` INT NOT NULL,
+  `fours` INT NOT NULL,
+  `fives` INT NOT NULL,
+  `sixes` INT NOT NULL,
+  `bonus` INT NOT NULL,
+  `3_of_a_kind` INT NOT NULL,
+  `4_of_a_kind` INT NOT NULL,
+  `full_house` INT NOT NULL,
+  `sm_straight` INT NOT NULL,
+  `lg_straight` INT NOT NULL,
+  `yahtzee` INT NOT NULL,
+  `chance` INT NOT NULL,
+  `yahtzee_bonus` INT NOT NULL,
+  `player_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_game_player_idx` (`player_id` ASC),
@@ -63,9 +61,7 @@ CREATE TABLE IF NOT EXISTS `game` (
     REFERENCES `player` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 20
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 SET SQL_MODE = '';
 DROP USER IF EXISTS yahtzeeuser@localhost;
@@ -77,3 +73,25 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'yahtzeeuser'@'local
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `player`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `yahtzeedb`;
+INSERT INTO `player` (`id`, `name`) VALUES (1, 'Max');
+INSERT INTO `player` (`id`, `name`) VALUES (2, 'Carla');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `game`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `yahtzeedb`;
+INSERT INTO `game` (`id`, `grand_total`, `winner`, `aces`, `twos`, `threes`, `fours`, `fives`, `sixes`, `bonus`, `3_of_a_kind`, `4_of_a_kind`, `full_house`, `sm_straight`, `lg_straight`, `yahtzee`, `chance`, `yahtzee_bonus`, `player_id`) VALUES (1, 180, 0, 2, 2, 12, 12, 0, 24, 0, 28, 26, 25, 30, 0, 0, 20, 0, 1);
+INSERT INTO `game` (`id`, `grand_total`, `winner`, `aces`, `twos`, `threes`, `fours`, `fives`, `sixes`, `bonus`, `3_of_a_kind`, `4_of_a_kind`, `full_house`, `sm_straight`, `lg_straight`, `yahtzee`, `chance`, `yahtzee_bonus`, `player_id`) VALUES (DEFAULT, 250, 1, 3, 4, 12, 8, 15, 24, 35, 23, 12, 25, 30, 40, 0, 20, 0, 2);
+
+COMMIT;
+

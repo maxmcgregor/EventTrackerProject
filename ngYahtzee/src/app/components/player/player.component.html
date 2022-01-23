@@ -1,0 +1,17 @@
+
+<hr>
+<h4>All Players</h4>
+<div *ngIf="!addingNewPlayer">
+<select name="players" id="allPlayers">
+    <option *ngFor="let p of players" value={{p}}>{{p.name}}</option>
+</select>
+<br>
+<button (click)="addingNewPlayer=true">Add New Player</button>
+</div>
+
+<div *ngIf="addingNewPlayer">
+  <form>
+    <input type="text" name="playerName" placeholder="Player Name" [(ngModel)]="newPlayer.name">
+  </form>
+  <button (click)="addingNewPlayer=false; addPlayer(newPlayer)" >Add Player</button>
+</div>

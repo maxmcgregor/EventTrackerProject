@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,14 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { GameService } from './services/game.service';
 import { GameComponent } from './components/game/game.component';
 import { PlayerComponent } from './components/player/player.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PlayerService } from './services/player.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GameComponent,
-    PlayerComponent
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [
-    GameService
+    GameService,
+    PlayerService
   ],
   bootstrap: [AppComponent]
 })

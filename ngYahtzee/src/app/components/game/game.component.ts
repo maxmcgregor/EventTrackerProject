@@ -18,6 +18,7 @@ games: Game[] = [];
 players: Player[] = [];
 addingNewGame = false;
 viewingGame = false;
+editingGame = false;
 title = 'ngYahtzee';
 
   constructor(
@@ -33,11 +34,12 @@ title = 'ngYahtzee';
     }
   }
 
-  retrievePlayer(game: Game) {
+  retrievePlayerName(game: Game) {
     if (game.player != undefined) {
       return this.playerService.show(game.player.id).subscribe({
         next: (player) => {
-          console.log(player);
+          let playerName = player.name;
+          return playerName;
         },
         error: (fail) => {
           console.error('gameComponent.retrievePlayer(): error retrieving player');
@@ -49,6 +51,8 @@ title = 'ngYahtzee';
   }
 
   addGame(game: Game) {
+    console.log(game.player);
+    console.log(game.threeOfAKind);
     this.gameService.create(game).subscribe({
       next: (game) => {
         this.newGame = new Game();

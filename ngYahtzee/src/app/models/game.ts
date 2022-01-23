@@ -19,11 +19,11 @@ export class Game {
   yahtzee: number | undefined;
   chance: number | undefined;
   yahtzeeBonus: number | undefined;
-  player: Player | undefined;
+  player: Player = new Player();
 
   constructor(
     id: number = 0,
-    player?: Player,
+    player: Player = new Player(),
     grandTotal?: number,
     winner?: boolean,
     aces?: number,

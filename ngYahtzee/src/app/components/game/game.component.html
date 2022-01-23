@@ -11,10 +11,10 @@
     <tbody>
       <tr *ngFor="let g of games">
         <!-- <td>{{retrievePlayer(g)}}</td> -->
-        <td>Player name (will figure out later)</td>
+        <td *ngIf="g.player">{{g.player.name}}</td>
         <td>{{g.grandTotal}}</td>
         <td>{{checkWinner(g)}}</td>
-        <td><button (click)="selected=g; viewingGame=true">View Details</button></td>
+        <td><button (click)="selected=g; viewingGame=true; retrievePlayerName(g)">View Details</button></td>
       </tr>
     </tbody>
   </table>
@@ -24,8 +24,8 @@
 </div>
 <div *ngIf="addingNewGame">
 <form>
-  Player: <select name="player" id="players">
-    <option *ngFor="let p of players" value={{p}} name="player" [(ngModel)]="newGame.player">{{p.name}}</option>
+  Player: <select name="player" id="players" name="player" [(ngModel)]="newGame.player">
+    <option *ngFor="let p of players" value={{p}}>{{p.name}}</option>
   </select>
   <br>Total Score<input type="number" placeholder="Total Score" name="totalScore" [(ngModel)]="newGame.grandTotal">
   <br><input type="radio" id="winner" name="winOrLose" value=true [(ngModel)]="newGame.winner"> <label for="winner">Winner</label>
@@ -50,7 +50,7 @@
 </form>
 </div>
 
-<div *ngIf="selected && !editGame">
+<div *ngIf="selected && viewingGame">
   <!-- Player: {{retrievePlayer(selected)}}<br> -->
   Player: (will figure out later)<br>
   Total Score: {{selected.grandTotal}}<br>
@@ -96,10 +96,11 @@
     </tbody>
   </table>
   <button (click)="displayAllGame(); viewingGame=false">Back</button>
-  <button (click)="setEditGame()">Edit</button>
+  <button (click)="setEditGame(); viewingGame=false; editingGame=true">Edit</button>
 </div>
 
-<form *ngIf="editGame">
+<div *ngIf="editGame && editingGame">
+<form>
   Aces <input type="number" name="aces" [(ngModel)]="editGame.aces"><br>
   Twos <input type="number" name="twos" [(ngModel)]="editGame.twos"><br>
   Threes<input type="number" name="threes" [(ngModel)]="editGame.threes"><br>
@@ -115,6 +116,7 @@
   Yahtzee<input type="number" name="yahtzee" [(ngModel)]="editGame.yahtzee"><br>
   Chance <input type="number" name="chance" [(ngModel)]="editGame.chance"><br>
   Yahtzee Bonus<input type="number" name="yahtzeeBonus" [(ngModel)]="editGame.yahtzeeBonus"><br>
-  <button (click)="editGame=null")>Cancel</button>
-  <button (click)="updateGame(editGame)">Update Game</button>
+  <button (click)="editGame=null; editingGame=false">Cancel</button>
+  <button (click)="updateGame(editGame); editingGame=false">Update Game</button>
 </form>
+</div>
